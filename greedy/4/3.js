@@ -1,4 +1,4 @@
-const position = 'a1';
+const position = 'e1';
 let result = 0; // 답은 2
 
 const x = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'].indexOf(position[0]) + 1;
@@ -39,19 +39,22 @@ console.log(x, y)
 //   }
 // }
 
-const direction = {
-  rightUp: (x, y) => (x + 2 <= 8 && y - 1 >= 1),
-  rightDown: (x, y) => (x + 2 <= 8 && y + 1 <= 8),
-  leftUp: (x, y) => (x - 2 >= 1 && y - 1 >= 1),
-  leftDown: (x, y) => (x - 2 >= 1 && y + 1 <= 8),
-  upRight: (x, y) => (x + 1 <= 8 && y - 2 >= 1),
-  upLeft: (x, y) => (x - 1 >= 1 && y - 2 >= 1),
-  downLeft: (x, y) => (x + 1 <= 8 && y + 2 <= 8),
-  downRight: (x, y) => (x - 1 >= 1 && y + 2 <= 8),
+const ways = {
+  rightUp: [2, -1],
+  rightDown: [2, 1],
+  leftUp: [-2, -1],
+  leftDown: [-2, 1],
+  upRight: [1, -2],
+  upLeft: [-1, -2],
+  downLeft: [1, 2],
+  downRight: [-1, 2],
 }
 
-Object.keys(temp).forEach(key => {
-  if (temp[key](x, y)) {
+Object.keys(ways).forEach(way => {
+  if (
+    (x + ways[way][0] >= 1 && x + ways[way][0] <= 8) &&
+    (y + ways[way][1] >= 1 && y + ways[way][1] <= 8)
+  ) {
     result += 1;
   }
 })
