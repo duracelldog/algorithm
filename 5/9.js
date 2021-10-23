@@ -17,13 +17,13 @@ function BFS예제() {
     visited[startNode] = true;
 
     while(queue.length > 0) {
-      const node = queue.pop();
+      const node = queue.shift();
 
       console.log('node', node);
 
       graph[node].forEach(linkedNode => {
         if (!visited[linkedNode]) {
-          queue.unshift(linkedNode);
+          queue.push(linkedNode);
           visited[linkedNode] = true;
         }
       });

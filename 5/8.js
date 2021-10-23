@@ -10,9 +10,7 @@ function DFS예제() {
     8: [1, 7]
   }
 
-  const visited = Array.from({
-      length: Object.keys(graph).length
-    }, () => false);
+  const visited = Array.from({ length: Object.keys(graph).length }, () => false);
 
 
   const DFS = (graph, startNode, visited) => {
@@ -32,3 +30,5 @@ function DFS예제() {
 }
 
 DFS예제();
+
+// stack 재귀함수로 구현
