@@ -2,7 +2,7 @@ function 퀵정렬() {
   const array = [5, 7, 9, 0, 3, 1, 6, 2, 4, 8];
 
   const quick_sort = (array, start, end) => {
-    const pivot = start;
+    // const pivot = start;
     let left = start + 1;
     let right = end;
 
@@ -14,19 +14,19 @@ function 퀵정렬() {
     while(left <= right) {
 
       // 왼쪽에서부터 피벗보다 큰 데이터를 선택한다
-      while(left <= end && array[pivot] >= array[left]) {
+      while(left <= end && array[start] >= array[left]) {
         left += 1;
       }
 
       // 오른쪽에서부터 피벗보다 작은 데이터를 선택한다
-      while(start < right && array[pivot] <= array[right]) {
+      while(start < right && array[start] <= array[right]) {
         right -= 1;
       }
 
       if (left > right) { // 데이터가 엇갈리는 경우 작은데이터와 피벗의 위치를 바꾼다
         const temp = array[right];
-        array[right] = array[pivot];
-        array[pivot] = temp;
+        array[right] = array[start];
+        array[start] = temp;
       } else { // 엇갈리지 않는 정상적인 경우 left와 right를 서로 위치를 바꾼다
         const temp = array[left];
         array[left] = array[right];
