@@ -12,7 +12,7 @@ const graph = [
 const dx = [-1, 1, 0, 0];
 const dy = [0, 0, -1, 1];
 
-const DFS = (x, y) => {
+const BFS = (x, y) => {
   const queue = [];
   queue.push([x, y]);
 
@@ -41,6 +41,6 @@ const DFS = (x, y) => {
   return graph[m - 1][n - 1];
 }
 
-const result = DFS(0, 0);
+const result = BFS(0, 0);
 
 console.log('result', result);
