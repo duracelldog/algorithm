@@ -1,34 +1,30 @@
-const total = 4;
-const payments = [3, 5, 7];
-let count = 0;
+const total = 7;
+const papers = [2, 3, 5];
+const d = [];
 const min = (a, b) => {
-  if (a === -1, b === -1) {
-    return -1;
-  }
-
-  if (a === -1) {
+  if (a > b) {
     return b;
   }
 
-  if (b === -1) {
-    return a
-  }
-
-  if (a < b) {
-    return a;
-  }
-
-  return b;
+  return a;
 }
 
-for(let i=0; i<payments.length; i++) {
-  if (total % payments[i] === 0) {
-    count = min(count, total / payments[i]);
-  } else if (payments.includes(total % payments[i])) {
-    count = min(count, Math.floor(total / payments[i]) + 1);
-  } else {
-    count = -1
+d[0] = 0;
+
+for(let paper of papers) {
+  d[paper] = 1;
+}
+
+// d[n] = d[n-paper] + 1;
+
+for(let paper of papers) {
+  for(let i=paper; i<=total; i++) {
+    if (d[i]) {
+      d[i] = min(d[i], d[i-paper] + 1);
+    } else {
+      d[i] = d[i-paper] + 1;
+    }
   }
 }
 
-console.log({ count });
+console.log('result', d);
