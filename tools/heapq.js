@@ -29,7 +29,7 @@ class MinHeap extends Heap {
     let parentIndex = this.getParentIndex(lastIndex);
 
     // 부모가 자식보다 값이 큰 경우 자리를 바꾼다 (최소힙 -> 부모가 작아야함)
-    while (this.items[parentIndex] !== undefined && this.items[parentIndex] > this.items[lastIndex]) {
+    while (this.items[parentIndex]?.value !== undefined && this.items[parentIndex].value > this.items[lastIndex].value) {
       this.swap(lastIndex, this.getParentIndex(lastIndex));
 
       lastIndex = this.getParentIndex(lastIndex);
@@ -45,12 +45,12 @@ class MinHeap extends Heap {
 
     // 자식이 부모보다 작을 경우 (최소힙 -> 부모가 작아야함)
     while (
-      (this.items[leftChildIndex] !== undefined && this.items[leftChildIndex] < this.items[index])
-      || (this.items[rightChildIndex] !== undefined && this.items[rightChildIndex] < this.items[index])
+      (this.items[leftChildIndex]?.value !== undefined && this.items[leftChildIndex].value < this.items[index].value)
+      || (this.items[rightChildIndex]?.value !== undefined && this.items[rightChildIndex].value < this.items[index].value)
     ) {
       let smallIndex = this.getLeftChildIndex(index);
 
-      if (this.items[rightChildIndex] !== undefined && this.items[rightChildIndex] < this.items[smallIndex]) {
+      if (this.items[rightChildIndex]?.value !== undefined && this.items[rightChildIndex].value < this.items[smallIndex].value) {
         smallIndex = this.getRightChildIndex(index);
       }
 
@@ -90,7 +90,7 @@ class MaxHeap extends Heap {
     let parentIndex = this.getParentIndex(index);
 
     // 부모가 자식보다 작을때 자리를 바꾼다 (최대힙 -> 부모가 커야함)
-    while(this.items[parentIndex] && this.items[parentIndex] < this.items[index]){
+    while(this.items[parentIndex]?.value !== undefined && this.items[parentIndex].value < this.items[index].value){
         this.swap(index, this.getParentIndex(index));
         index = this.getParentIndex(index);
         parentIndex = this.getParentIndex(index);
@@ -105,12 +105,12 @@ class MaxHeap extends Heap {
 
     // 자식이 부모보다 클때 자릴 바꾼다 (최대힙 -> 부모가 커야함)
     while(
-      this.items[leftChildIndex] && this.items[leftChildIndex] > this.items[index]
-    || this.items[rightChildIndex] && this.items[rightChildIndex] > this.items[index]
+      this.items[leftChildIndex]?.value !== undefined && this.items[leftChildIndex].value > this.items[index].value
+    || this.items[rightChildIndex]?.value !== undefined && this.items[rightChildIndex].value > this.items[index].value
     ) {
         let largerIndex = this.getLeftChildIndex(index);
 
-        if(this.items[rightChildIndex] && this.items[rightChildIndex] > this.items[largerIndex]){
+        if(this.items[rightChildIndex]?.value && this.items[rightChildIndex].value > this.items[largerIndex].value){
           largerIndex = this.getRightChildIndex(index);
         }
 
@@ -143,34 +143,34 @@ class MaxHeap extends Heap {
 
 //최소 힙을 사용하는 코드
 const minheap = new MinHeap();
-minheap.push(1);
-minheap.push(10);
-minheap.push(5);
-minheap.push(100);
-minheap.push(8);
+minheap.push({value: 0, name: '노드1'});
+minheap.push({value: 2, name: '노드2'});
+minheap.push({value: 1, name: '노드4'});
+minheap.push({value: 6, name: '노드5'});
+minheap.push({value: 5, name: '노드3'});
 
-console.log(minheap); //array(5) [1, 8, 5, 100, 10]
-console.log(minheap.pop()); // 1
-console.log(minheap.pop()); // 5
-console.log(minheap.pop()); // 8
-console.log(minheap.pop()); // 10
-console.log(minheap.pop()); // 100
-console.log(minheap); // array(0)
+console.log(minheap);
+console.log(minheap.pop());
+console.log(minheap.pop());
+console.log(minheap.pop());
+console.log(minheap.pop());
+console.log(minheap.pop());
+console.log(minheap);
 
 
-//최대 힙을 사용하는 코드
+// //최대 힙을 사용하는 코드
 const maxheap = new MaxHeap();
-maxheap.push(1);
-maxheap.push(10);
-maxheap.push(5);
-maxheap.push(100);
-maxheap.push(8);
+maxheap.push({value: 0, name: '노드1'});
+maxheap.push({value: 2, name: '노드2'});
+maxheap.push({value: 1, name: '노드4'});
+maxheap.push({value: 6, name: '노드5'});
+maxheap.push({value: 5, name: '노드3'});
 
-console.log(maxheap); //array(5) [100, 10, 5, 1, 8]
-console.log(maxheap.pop()); // 100
-console.log(maxheap.pop()); // 10
-console.log(maxheap.pop()); // 8
-console.log(maxheap.pop()); // 5
-console.log(maxheap.pop()); // 1
-console.log(maxheap); // array(0)
+console.log(maxheap);
+console.log(maxheap.pop());
+console.log(maxheap.pop());
+console.log(maxheap.pop());
+console.log(maxheap.pop());
+console.log(maxheap.pop());
+console.log(maxheap);
 
