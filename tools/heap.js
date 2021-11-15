@@ -26,38 +26,30 @@ class MinHeap extends Heap {
   // 데이터를 추가 할떄 사용
   bubbleUp() {
     let lastIndex = this.items.length - 1;
-    let parentIndex = this.getParentIndex(lastIndex);
 
     // 부모가 자식보다 값이 큰 경우 자리를 바꾼다 (최소힙 -> 부모가 작아야함)
-    while (this.items[parentIndex] !== undefined && this.items[parentIndex] > this.items[lastIndex]) {
+    while (this.items[this.getParentIndex(lastIndex)] !== undefined && this.items[this.getParentIndex(lastIndex)] > this.items[lastIndex]) {
       this.swap(lastIndex, this.getParentIndex(lastIndex));
 
       lastIndex = this.getParentIndex(lastIndex);
-      parentIndex = this.getParentIndex(lastIndex);
     }
   }
 
   // 데이터를 추출할 때 사용
   bubbleDown() {
     let index = 0;
-    let leftChildIndex = this.getLeftChildIndex(index);
-    let rightChildIndex = this.getRightChildIndex(index);
 
     // 자식이 부모보다 작을 경우 (최소힙 -> 부모가 작아야함)
     while (
-      (this.items[leftChildIndex] !== undefined && this.items[leftChildIndex] < this.items[index])
-      || (this.items[rightChildIndex] !== undefined && this.items[rightChildIndex] < this.items[index])
+      (this.items[this.getLeftChildIndex(index)] !== undefined && this.items[this.getLeftChildIndex(index)] < this.items[index])
+      || (this.items[this.getRightChildIndex(index)] !== undefined && this.items[this.getRightChildIndex(index)] < this.items[index])
     ) {
-      let smallIndex = this.getLeftChildIndex(index);
-
-      if (this.items[rightChildIndex] !== undefined && this.items[rightChildIndex] < this.items[smallIndex]) {
-        smallIndex = this.getRightChildIndex(index);
-      }
+      const leftIndex = this.getLeftChildIndex(index);
+      const rightIndex = this.getRightChildIndex(index);
+      const smallIndex = this.items[leftIndex] > this.items[rightIndex] ? rightIndex : leftIndex;
 
       this.swap(index, smallIndex);
       index = smallIndex;
-      leftChildIndex = this.getLeftChildIndex(smallIndex);
-      rightChildIndex = this.getRightChildIndex(smallIndex);
     }
   }
 

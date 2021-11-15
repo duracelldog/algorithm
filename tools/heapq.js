@@ -33,7 +33,7 @@ class MinHeap extends Heap {
       this.swap(lastIndex, this.getParentIndex(lastIndex));
 
       lastIndex = this.getParentIndex(lastIndex);
-      parentIndex = this.getParentIndex(lastIndex);
+      parentIndex = lastIndex;
     }
   }
 

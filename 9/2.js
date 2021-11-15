@@ -169,7 +169,7 @@ const graph = [
   [] // 6
 ];
 
-const visited = Array.from({ length: graph.length }, () => false);
+// const visited = Array.from({ length: graph.length }, () => false);
 const distance = Array.from({ length: graph.length }, () => INF);
 
 const 다익스트리 = (start) => {
