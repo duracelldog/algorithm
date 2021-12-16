@@ -1,34 +1,60 @@
-function DFS예제() {
-  const graph = {
-    1: [2, 3, 8],
-    2: [1, 7],
-    3: [1, 4, 5],
-    4: [3, 5],
-    5: [3, 4],
-    6: [7],
-    7: [2, 6, 8],
-    8: [1, 7]
-  }
+const graph = {
+  0: [],
+  1: [2, 3, 8],
+  2: [1, 7],
+  3: [1, 4, 5],
+  4: [3, 5],
+  5: [3, 4],
+  6: [7],
+  7: [2, 6, 8],
+  8: [1, 7],
+};
 
-  const visited = Array.from({ length: Object.keys(graph).length }, () => false);
+const visited = Array.from({ length: Object(graph).length }, () => false);
 
+const DFS = (start) => {
+  console.log({ start });
+  visited[start] = true;
 
-  const DFS = (graph, startNode, visited) => {
-    console.log('startNode', startNode);
-    visited[startNode] = true;
+  graph[start].forEach((node) => {
+    if (!visited[node]) {
+      DFS(node);
+    }
+  });
+};
 
-    graph[startNode].forEach(linkedNode => {
-      if(!visited[linkedNode]) {
-        DFS(graph, linkedNode, visited);
-      }
-    });
-  }
+DFS(1);
 
-  DFS(graph, 1, visited);
+// function DFS예제() {
+//   const graph = {
+//     1: [2, 3, 8],
+//     2: [1, 7],
+//     3: [1, 4, 5],
+//     4: [3, 5],
+//     5: [3, 4],
+//     6: [7],
+//     7: [2, 6, 8],
+//     8: [1, 7]
+//   }
 
-  // console.log('grapth', visited);
-}
+//   const visited = Array.from({ length: Object.keys(graph).length }, () => false);
 
-DFS예제();
+//   const DFS = (graph, startNode, visited) => {
+//     console.log('startNode', startNode);
+//     visited[startNode] = true;
 
-// stack 재귀함수로 구현
+//     graph[startNode].forEach(linkedNode => {
+//       if(!visited[linkedNode]) {
+//         DFS(graph, linkedNode, visited);
+//       }
+//     });
+//   }
+
+//   DFS(graph, 1, visited);
+
+//   // console.log('grapth', visited);
+// }
+
+// DFS예제();
+
+// // stack 재귀함수로 구현

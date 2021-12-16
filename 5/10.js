@@ -7,30 +7,26 @@ const graph = [
   [1, 0, 1],
 ];
 
-let result = 0;
-
 const DFS = (x, y) => {
-  if (
-    x >= 0 && x < n &&
-    y >= 0 && y < m &&
-    graph[x][y] === 0
-  ) {
+  if (x >= 0 && x < n && y >= 0 && y < m && graph[x][y] === 0) {
     graph[x][y] = 1;
 
-    DFS(x - 1, y);
-    DFS(x, y - 1);
-    DFS(x + 1, y);
-    DFS(x, y + 1);
+    DFS(x - 1, y); // 서쪽
+    DFS(x, y - 1); // 북쪽
+    DFS(x + 1, y); // 동쪽
+    DFS(x, y + 1); // 남쪽
 
     return true;
   }
 
   return false;
-}
+};
 
-for (let i=0; i<n; i++) {
-  for (let j=0; j<m; j++) {
-    console.log(`${i}, ${j}`)
+let result = 0;
+
+for (let i = 0; i < n; i++) {
+  for (let j = 0; j < m; j++) {
+    console.log(`${i}, ${j}`);
 
     if (DFS(i, j)) {
       result += 1;
@@ -38,4 +34,4 @@ for (let i=0; i<n; i++) {
   }
 }
 
-console.log('result', result);
+console.log("result", result);
