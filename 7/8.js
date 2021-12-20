@@ -6,7 +6,6 @@ function 떡볶이떡만들기() {
   let start = 0;
   let end = array.sort((a, b) => b - a)[0];
   let result = 0;
-  
   let count = 0;
 
   while(start <= end) {
