@@ -146,7 +146,7 @@ const INF = 9999999;
 const graph = [
   [], // 0
   [ // 1
-    [2, 2],
+    [2, 2], // 2번 노드까지 2 만큼의 거리가 소요된다
     [3, 5],
     [4, 1]
   ],
@@ -169,48 +169,85 @@ const graph = [
   [] // 6
 ];
 
-// const visited = Array.from({ length: graph.length }, () => false);
 const distance = Array.from({ length: graph.length }, () => INF);
 
-const 다익스트리 = (start) => {
+const 다익스트라 = (start) => {
   const heap = new MinHeap();
 
   heap.push({
-    value: 0, // 비용
-    node: start // 노드
-  })
+    value: 0,
+    index: start
+  });
 
   distance[start] = 0;
 
-  while(heap.items.length > 0) {
-    const { value: nowValue, node: nowNode } = heap.pop();
+  while (heap.items.length > 0) {
+    const { value, index } = heap.pop();
 
-    if (distance[nowNode] < nowValue) {
+    // 현재 노드가 이미 처리된 적이 있는 노드라면 무시한다
+    if (distance[index] < value) {
       continue;
     }
 
-    graph[nowNode].forEach(val => {
-      const cost = nowValue + val[1];
+    graph[index].forEach(([subIndex, subValue]) => {
+      const totalValue = value + subValue;
 
-      if (cost < distance[val[0]]) {
-        distance[val[0]] = cost;
+      if (totalValue < distance[subIndex]) {
+        distance[subIndex] = totalValue;
+
         heap.push({
-          value: cost,
-          node: val[0]
-        })
+          value: totalValue,
+          index: subIndex
+        });
       }
     })
   }
+
+  console.log({ distance })
 }
 
-다익스트리(1);
+다익스트라(1);
 
-distance.forEach(dist => {
-  if (dist === INF) {
-    console.log('INFINITY');
-  } else {
-    console.log(dist);
-  }
-});
+
+// const 다익스트리 = (start) => {
+//   const heap = new MinHeap();
+
+//   heap.push({
+//     value: 0, // 비용
+//     node: start // 노드
+//   })
+
+//   distance[start] = 0;
+
+//   while(heap.items.length > 0) {
+//     const { value: nowValue, node: nowNode } = heap.pop();
+
+//     if (distance[nowNode] < nowValue) {
+//       continue;
+//     }
+
+//     graph[nowNode].forEach(val => {
+//       const cost = nowValue + val[1];
+
+//       if (cost < distance[val[0]]) {
+//         distance[val[0]] = cost;
+//         heap.push({
+//           value: cost,
+//           node: val[0]
+//         })
+//       }
+//     })
+//   }
+// }
+
+// 다익스트리(1);
+
+// distance.forEach(dist => {
+//   if (dist === INF) {
+//     console.log('INFINITY');
+//   } else {
+//     console.log(dist);
+//   }
+// });
 
 
