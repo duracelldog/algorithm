@@ -1,72 +1,159 @@
-
-const INF = 999999;
+const INF = 9999999;
 const graph = [
   [], // 0
-  [ // 1
+  [
+    // 1
     [2, 2], // 2번 노드까지 2 만큼의 거리가 소요된다
     [3, 5],
-    [4, 1]
+    [4, 1],
   ],
-  [ // 2
+  [
+    // 2
     [3, 3],
-    [4, 2]
+    [4, 2],
   ],
-  [ // 3
+  [
+    // 3
     [2, 3],
-    [6, 5]
+    [6, 5],
   ],
-  [ // 4
+  [
+    // 4
     [3, 3],
-    [5, 1]
+    [5, 1],
   ],
-  [ // 5
+  [
+    // 5
     [3, 1],
-    [6, 2]
+    [6, 2],
   ],
-  [] // 6
+  [], // 6
 ];
-const visited = Array.from({ length: graph.length }, () => false);
-const costs = Array.from({ length: graph.length }, () => INF);
 
-const getSmallCostIndex = () => {
-  let nowIndex = 0;
-  let nowCost = INF;
+const items = Array.from({ length: graph.length }, () => ({
+  visited: false,
+  value: INF,
+}));
 
-  for(let i=0; i<costs.length; i++) {
-    if (nowCost > costs[i] && !visited[i]) {
-      nowCost = costs[i];
-      nowIndex = i;
+const getSmallValueIndex = () => {
+  let smallValue = INF;
+  let smallValueIndex = 0;
+
+  items.forEach(({ visited, value }, index) => {
+    if (value < smallValue && !visited) {
+      smallValue = value;
+      smallValueIndex = index;
     }
-  }
-
-  return nowIndex;
-}
-
-
-const 다익스트라 = (start) => {
-  visited[start] = true;
-  costs[start] = 0;
-
-  graph[start].forEach(([index, cost]) => {
-    costs[index] = cost;
   });
 
-  graph.forEach(() => {
-    const smallIndex = getSmallCostIndex();
+  return smallValueIndex;
+}
 
-    visited[smallIndex] = true;
-    graph[smallIndex].forEach(([index, cost]) => {
-      const totalCost = costs[smallIndex] + cost;
+const 다익스트라 = (start) => {
+  items[start] = {
+    visited: true,
+    value: 0,
+  };
 
-      if (costs[index] > totalCost) {
-        costs[index] = totalCost;
+  graph[start].forEach(([subIndex, subValue]) => {
+    items[subIndex] = {
+      visited: false,
+      value: subValue,
+    };
+  });
+
+  for(let i=0; i<graph.length; i++) {
+    const smallIndex = getSmallValueIndex();
+
+    items[smallIndex] = {
+      ...items[smallIndex],
+      visited: true,
+    }
+
+    graph[smallIndex].forEach(([subIndex, subValue]) => {
+      const totalValue = items[smallIndex].value + subValue;
+
+      if (totalValue < items[subIndex].value) {
+        items[subIndex].value = totalValue;
       }
     });
-  })
+  }
 
-  console.log({ costs, visited });
-}
+  console.log({ items })
+};
+
 다익스트라(1);
+
+
+// const INF = 999999;
+// const graph = [
+//   [], // 0
+//   [ // 1
+//     [2, 2], // 2번 노드까지 2 만큼의 거리가 소요된다
+//     [3, 5],
+//     [4, 1]
+//   ],
+//   [ // 2
+//     [3, 3],
+//     [4, 2]
+//   ],
+//   [ // 3
+//     [2, 3],
+//     [6, 5]
+//   ],
+//   [ // 4
+//     [3, 3],
+//     [5, 1]
+//   ],
+//   [ // 5
+//     [3, 1],
+//     [6, 2]
+//   ],
+//   [] // 6
+// ];
+// const visited = Array.from({ length: graph.length }, () => false);
+// const costs = Array.from({ length: graph.length }, () => INF);
+
+// const getSmallCostIndex = () => {
+//   let nowIndex = 0;
+//   let nowCost = INF;
+
+//   for(let i=0; i<costs.length; i++) {
+//     if (nowCost > costs[i] && !visited[i]) {
+//       nowCost = costs[i];
+//       nowIndex = i;
+//     }
+//   }
+
+//   return nowIndex;
+// }
+
+
+// const 다익스트라 = (start) => {
+//   visited[start] = true;
+//   costs[start] = 0;
+
+//   graph[start].forEach(([index, cost]) => {
+//     costs[index] = cost;
+//   });
+
+//   graph.forEach(() => {
+//     const smallIndex = getSmallCostIndex();
+
+//     visited[smallIndex] = true;
+//     graph[smallIndex].forEach(([index, cost]) => {
+//       const totalCost = costs[smallIndex] + cost;
+
+//       if (costs[index] > totalCost) {
+//         costs[index] = totalCost;
+//       }
+//     });
+//   })
+
+//   console.log({ costs, visited });
+// }
+
+// 다익스트라(1);
 
 // // 다익스트리 알고리즘
 // const INF = 999999;

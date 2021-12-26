@@ -26,12 +26,14 @@ class MinHeap extends Heap {
   // 데이터를 추가 할떄 사용
   bubbleUp() {
     let lastIndex = this.items.length - 1;
+    let parentIndex = this.getParentIndex(lastIndex);
 
     // 부모가 자식보다 값이 큰 경우 자리를 바꾼다 (최소힙 -> 부모가 작아야함)
-    while (this.items[this.getParentIndex(lastIndex)] !== undefined && this.items[this.getParentIndex(lastIndex)] > this.items[lastIndex]) {
-      this.swap(lastIndex, this.getParentIndex(lastIndex));
+    while (this.items[parentIndex] && this.items[parentIndex] > this.items[lastIndex]) {
+      this.swap(lastIndex, parentIndex);
 
       lastIndex = this.getParentIndex(lastIndex);
+      parentIndex = this.getParentIndex(lastIndex);
     }
   }
 
